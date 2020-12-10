@@ -15,4 +15,8 @@ class Piece
   def unicode
     @@unicode_display[@color]
   end
+
+  def get_legal_moves(board)
+    puts "Get legal moves"
+  end
 end

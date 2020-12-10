@@ -62,18 +62,28 @@ class Chess
     @current_player = @@player_colors[@current_player]
   end
 
-  def make_move
-    input = gets.chomp
-    input = input.split(" ")
-    p input
+  def move_legal?(move)
+  end
+
+  def make_move(input)
+    puts "Move Input: #{input}"
+  end
+
+  def get_player_move
+    input = []
+    2.times do
+      input.push gets.chomp
+    end
+    input
   end
 
   def check_for_checkmate
+    puts "Check for checkmate"
   end
 
   def take_turn
     puts "Current player: #{@current_player}"
-    make_move
+    make_move(get_player_move)
     check_for_checkmate
     switch_player
   end
