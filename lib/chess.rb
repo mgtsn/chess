@@ -8,6 +8,7 @@ class Chess
     black: :white,
   }
   @@starting_player = :white
+  @@capital_a_ascii = 65
 
   private
 
@@ -63,18 +64,39 @@ class Chess
   end
 
   def move_legal?(move)
+    move.length == 2
   end
 
-  def make_move(input)
+  def update_board(input)
+    puts "Updates board"
+  end
+
+  def make_move
+    input = get_player_move
+    until move_legal?(input)
+      puts "Illegal move"
+      input = get_player_move
+    end
     puts "Move Input: #{input}"
+    update_board(input)
+  end
+
+  def chess_notation_to_int(input)
+    output = []
+    input.each do |i|
+      i = i.split("")
+      i[0] = (i[0].upcase.ord - 65)
+      i[1] = i[1].to_i - 1
+      output.push(i)
+    end
+    p output
+    output
   end
 
   def get_player_move
-    input = []
-    2.times do
-      input.push gets.chomp
-    end
-    input
+    input = gets.chomp.split(" ")
+    puts "from chess notation: #{chess_notation_to_int(input)}"
+    chess_notation_to_int(input)
   end
 
   def check_for_checkmate
@@ -83,7 +105,7 @@ class Chess
 
   def take_turn
     puts "Current player: #{@current_player}"
-    make_move(get_player_move)
+    make_move
     check_for_checkmate
     switch_player
   end
